@@ -31,7 +31,9 @@
     NSString *path = @"user_login.action";
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:params];
     [parameters addEntriesFromDictionary:[self parameters]];
-    [[YDBaseHTTPOperationManager sharedManager] requestJsonDataWithPath:path withParams:parameters withMethodType:Post andBlock:^(id data, NSError *error) {
+    
+    [[YDBaseHTTPOperationManager sharedManager]requestJsonDataWithPath:path withMethodType:Post withParams:parameters withHttpheaders:nil andBlock:^(id data, NSError *error) {
+        
         id JSON = [NSJSONSerialization JSONObjectWithData:data
                                                   options:NSJSONReadingAllowFragments error:nil];
         if ([[JSON objectForKey:@"data"] isKindOfClass:[NSDictionary class]]) {
@@ -39,6 +41,7 @@
         }else{
             block(nil,error);
         }
+        
     }];
 }
 

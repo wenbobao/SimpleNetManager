@@ -39,14 +39,27 @@
 }
 
 - (void)requestJsonDataWithPath:(NSString *)aPath
-                     withParams:(NSDictionary*)params
                  withMethodType:(NetworkMethod)method
-                       andBlock:(void (^)(id data, NSError *error))block{
+                     withParams:(NSDictionary *)params
+                withHttpheaders:(NSDictionary *)headers
+                       andBlock:(void (^)(id data, NSError *error))block
+{
     if (!aPath || aPath.length <= 0) {
         return;
     }
     aPath = [aPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
+    if (headers != nil) {
+        for (id httpHeaderField in headers.allKeys) {
+            id value = headers[httpHeaderField];
+            if ([httpHeaderField isKindOfClass:[NSString class]] && [value isKindOfClass:[NSString class]]) {
+                [self.requestSerializer setValue:(NSString *)value forHTTPHeaderField:(NSString *)httpHeaderField];
+            } else {
+                DLog(@"Error, class of key/value in headerFieldValueDictionary should be NSString.");
+            }
+        }
+    }
+
     //发起请求
     switch (method) {
         case Get:{

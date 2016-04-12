@@ -14,8 +14,9 @@
 + (instancetype)sharedManager;
 
 - (void)requestJsonDataWithPath:(NSString *)aPath
-                     withParams:(NSDictionary*)params
                  withMethodType:(NetworkMethod)method
+                     withParams:(NSDictionary *)params
+                withHttpheaders:(NSDictionary *)headers
                        andBlock:(void (^)(id data, NSError *error))block;
 
 - (void)cancelAllRequests;
