@@ -1,5 +1,5 @@
 //
-//  YDBase.h
+//  YDBaseHTTPOperationManager.h
 //  wbchat
 //
 //  Created by bob on 15/9/7.
@@ -7,7 +7,7 @@
 //
 
 #import "AFHTTPRequestOperationManager.h"
-#import "YDNetWorkConst.m"
+#import "YDNetWorkConst.h"
 
 @interface YDBaseHTTPOperationManager : AFHTTPRequestOperationManager
 
@@ -17,13 +17,6 @@
                      withParams:(NSDictionary*)params
                  withMethodType:(NetworkMethod)method
                        andBlock:(void (^)(id data, NSError *error))block;
-
-
-- (void)requestJsonDataWithPath:(NSString *)aPath
-                     withParams:(NSDictionary*)params
-                 withMethodType:(NetworkMethod)method
-                  autoShowError:(BOOL)autoShowError
-                       andBlock:(void (^)(id data, NSError *error))block;\
 
 - (void)cancelAllRequests;
 
